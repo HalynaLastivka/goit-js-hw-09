@@ -5,7 +5,7 @@ const stopButton = document.querySelector('[data-stop]');
 
 startButton.addEventListener('click', onStart);
 stopButton.addEventListener('click', onStop);
-let timerId = 0;
+let timerId = null;
 
 function onStart() {
     
@@ -24,6 +24,7 @@ function onStop() {
         stopButton.disabled = true;
         startButton.disabled = false;
         clearInterval(timerId);
+        intervalId = null;
     }
 }
 
