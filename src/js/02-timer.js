@@ -20,7 +20,6 @@ dataMinutes.textContent = '00';
 dataSeconds.textContent = '00';
 inputData.value = '';
 
-console.log(inputData.disabled);
 
 let timerId = null;
 const dataNow = new Date(); 
@@ -46,8 +45,6 @@ const options = {
 };
 
 flatpickr('#datetime-picker', options);
-
-console.log(inputData.disabled);
 
 
 function convertMs(ms) {
@@ -92,8 +89,8 @@ function onStart() {
       console.log(inputData.disabled);
        if (objMs.days === 0 && objMs.hours === 0 && objMs.minutes === 0 && objMs.seconds === 0) {
          clearInterval(timerId);
-         inputData.disabled = false; // Enable the input field
-         btnStart.disabled = false; // Enable the start button
+         inputData.disabled = false; 
+         btnStart.disabled = false; 
     }
 
     }, 1000);
