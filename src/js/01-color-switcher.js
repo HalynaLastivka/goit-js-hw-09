@@ -24,7 +24,7 @@ function onStop() {
         stopButton.disabled = true;
         startButton.disabled = false;
         clearInterval(timerId);
-        intervalId = null;
+        timerId = null;
     }
 }
 

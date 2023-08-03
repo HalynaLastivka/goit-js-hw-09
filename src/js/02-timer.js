@@ -20,6 +20,8 @@ dataMinutes.textContent = '00';
 dataSeconds.textContent = '00';
 inputData.value = '';
 
+console.log(inputData.disabled);
+
 let timerId = null;
 const dataNow = new Date(); 
 let dataSelect = new Date();
@@ -31,20 +33,21 @@ const options = {
   defaultDate: new Date(),
   minuteIncrement: 1,
   onClose(selectedDates) {
-    //   console.log(selectedDates[0]);
       dataSelect = selectedDates[0];
       if (dataSelect < dataNow) {
-          btnStart.disabled = true;
+           btnStart.disabled = true;
           Notiflix.Notify.warning('Please choose a date in the future');
       }
     else{
-          btnStart.disabled = false;
+           btnStart.disabled = false;
       }
 
   },
 };
 
 flatpickr('#datetime-picker', options);
+
+console.log(inputData.disabled);
 
 
 function convertMs(ms) {
@@ -69,9 +72,15 @@ function convertMs(ms) {
 
 function onStart() {
 
+  if (dataSelect <= new Date()) {
+     Notiflix.Notify.warning('Please choose a date in the future');
+    return;
+   }
+ 
+  btnStart.disabled = true;
+  inputData.disabled = true;
 
     timerId = setInterval(() => {
-    
         const dataNow = new Date(); 
         const objMs = convertMs(dataSelect.getTime() - dataNow.getTime());
    
@@ -79,6 +88,14 @@ function onStart() {
         dataHours.textContent = addLeadingZero(objMs.hours);
         dataMinutes.textContent = addLeadingZero(objMs.minutes);
         dataSeconds.textContent = addLeadingZero(objMs.seconds);
+
+      console.log(inputData.disabled);
+       if (objMs.days === 0 && objMs.hours === 0 && objMs.minutes === 0 && objMs.seconds === 0) {
+         clearInterval(timerId);
+         inputData.disabled = false; // Enable the input field
+         btnStart.disabled = false; // Enable the start button
+    }
+
     }, 1000);
 
 }
